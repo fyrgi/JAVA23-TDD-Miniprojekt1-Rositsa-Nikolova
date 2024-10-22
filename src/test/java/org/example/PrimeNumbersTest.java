@@ -57,17 +57,35 @@ class PrimeNumbersTest {
 
     /** after the system has checked the input type and the range it is time to do some calculations,
      * but not yet print the result **/
-    @ParameterizedTest
-    @CsvSource({
-            "5,'11'",
-            "5,'11'",
-            "5,'11'"
-    })
-    @DisplayName("All prime numbers SUM")
-    public void testSumOfAllPrimeNumbersInRange(int validUserInput, String expectedSumOfPrimes){
-        int sumOfPrimes = Integer.parseInt(expectedSumOfPrimes);
-
-        assertEquals(sumOfPrimes, pn.calculateSumOfPrimes(validUserInput));
+    // After a refactor a new helping method is created to check if a number is prime.
+    @Test
+    @DisplayName("Is number a prime")
+    public void testCheckIfTheNumberIsPrime(){
+        boolean isPrime;
+        assertTrue(isPrime = pn.isTheNumberPrime(17));
+        assertFalse(isPrime = pn.isTheNumberPrime(18));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "5, 10",
+            "666, 36888",
+            "1000, 76127"
+    })
+    @DisplayName("All prime numbers SUM")
+    public void testSumOfAllPrimeNumbersInRange(int validUserInput, int expectedSumOfPrimes){
+        assertEquals(expectedSumOfPrimes, pn.calculateSumOfPrimes(validUserInput));
+    }
+
+    @Test
+    @DisplayName("Check message about the sum")
+    public void testTheDisplayMessageAboutTheSum(){
+        assertEquals("The sum of all prime numbers between 0 and 666 is 36888\n", pn.printSum(666, 36888));
+    }
+
+    @Test
+    @DisplayName("Check message about the sum")
+    public void testTheDisplayMessageAboutTheCount(){
+        assertEquals("The amount of all prime numbers between 0 and 5 is 3\n", pn.printCount(5, 3));
+    }
 }
