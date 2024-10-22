@@ -1,8 +1,13 @@
-package org.taskone;
+package org.example;
+
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         PrimeNumbers pn = new PrimeNumbers();
-        pn.getUserInput("12");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What is your number");
+        String userInput = scanner.nextLine();
+        pn.isUserInputNumber(userInput);
     }
 }
