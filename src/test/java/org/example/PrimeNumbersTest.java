@@ -7,7 +7,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.params.ParameterizedTest;
 
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,7 +51,7 @@ class PrimeNumbersTest {
     @DisplayName("User input is Out of range")
     public void testIsUserInputOutOfRange(int userInput){
         boolean inRange;
-        assertTrue(inRange = pn.isUserInputInRange(userInput));
+        assertFalse(inRange = pn.isUserInputInRange(userInput));
     }
 
     /** after the system has checked the input type and the range it is time to do some calculations,
@@ -87,5 +86,22 @@ class PrimeNumbersTest {
     @DisplayName("Check message about the sum")
     public void testTheDisplayMessageAboutTheCount(){
         assertEquals("The amount of all prime numbers between 0 and 5 is 3\n", pn.printCount(5, 3));
+    }
+
+    /**
+     * As the last step we build a method in the class that combines all the submethods and contains the logic of the program
+     */
+    @Test
+    @DisplayName("The whole program")
+    public void testRunTheWholeProgram(){
+        String messageSuccess = "The sum of all prime numbers between 0 and 5 is 10\nThe amount of all prime numbers between 0 and 5 is 3\n";
+        String messageInvalidNumber = "Oops, invalid input. Start the program again!";
+        String messageOutOfRange = "The number should be in the range from 0 to 1000\n";
+        String messageZeroOrOne = "Your input of 1 is not a prime number.\n";
+        assertEquals(messageSuccess, pn.runTheProgram("5"));
+        assertEquals(messageInvalidNumber, pn.runTheProgram("asd"));
+        assertEquals(messageOutOfRange, pn.runTheProgram("-1"));
+        assertEquals(messageZeroOrOne, pn.runTheProgram("1"));
+
     }
 }

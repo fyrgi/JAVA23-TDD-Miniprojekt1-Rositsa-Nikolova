@@ -20,10 +20,10 @@ public class PrimeNumbers {
 
     public boolean isUserInputInRange(int validUserInput) {
         if(validUserInput < 0 || validUserInput >= 1001){
-            System.out.printf("The number should be in the range from %s to %s\n", MIN_INPUT, MAX_INPUT);
             inRange = false;
+        } else {
+            inRange = true;
         }
-        inRange = true;
         return inRange;
     }
 //refactor. Need a new method to find if a number is prime before summing it.
@@ -36,8 +36,6 @@ public class PrimeNumbers {
                 countOfPrimeNumbersInTheRange++;
             }
         }
-        //System.out.println(sumOfPrimes);
-        //System.out.println(countOfPrimeNumbersInTheRange);
         return sumOfPrimes;
     }
 
@@ -63,7 +61,36 @@ public class PrimeNumbers {
 
     public String printCount(int validUserInput, int countOfPrimeNumbersInTheRange) {
         String message = String.format("The amount of all prime numbers between %s and %s is %s\n", MIN_INPUT, validUserInput, countOfPrimeNumbersInTheRange);
-        System.out.println(countOfPrimeNumbersInTheRange);
+        return message;
+    }
+
+    public String runTheProgram(String number) {
+        String message = "Unknown error";
+
+        if(isUserInputNumber(number)==false){
+            message = "Oops, invalid input. Start the program again!";
+            return message;
+        }
+
+        if(!isUserInputInRange(this.validUserInput)){
+            message = String.format("The number should be in the range from %s to %s\n", MIN_INPUT, MAX_INPUT);
+            System.out.println(message);
+            return message;
+        }
+
+        if(this.validUserInput == 0 || this.validUserInput == 1){
+            message = "Your input of " + this.validUserInput + " is not a prime number.\n";
+            System.out.println(message);
+            return message;
+        }
+
+        if(this.validUserInput >= 2){
+            calculateSumOfPrimes(this.validUserInput);
+            message = "" + printSum(this.validUserInput, sumOfPrimes) + printCount(validUserInput, countOfPrimeNumbersInTheRange);
+            System.out.println(message);
+            return message;
+        }
+
         return message;
     }
 }
